@@ -1,0 +1,63 @@
+h1 {
+  color: chocolate;
+}
+
+p {
+  color: brown;
+}
+
+.try-flex {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-end;
+  height: 100vh;
+  flex-wrap: wrap;
+}
+
+.kodok-2 {
+  order: 2;
+  align-self: flex-start;
+}
+
+.kodok-1 {
+  order: 1;
+}
+
+.kodok-3 {
+  order: 3;
+  align-self: center;
+}
+
+.kodok-4 {
+  order: 4;
+}
+
+.garden {
+  display: grid;
+  grid-template-columns: 20% 20% 20% 20% 20%;
+  grid-template-rows: 20% 20% 20% 20% 20%;
+  height: 100vh;
+}
+
+.water-1 {
+  background-color: red;
+  grid-column-start: 1;
+  grid-column-end: span 4;
+  grid-row-start: 2;
+}
+
+.water-2 {
+  background-color: green;
+}
+
+.water-3 {
+  background-color: blue;
+}
+
+.water-4 {
+  background-color: cyan;
+}
+
+.water-5 {
+  background-color: magenta;
+}
