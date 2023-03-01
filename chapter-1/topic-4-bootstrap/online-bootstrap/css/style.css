@@ -6,3 +6,7 @@
   background-color: #f1f3ff;
   color: black;
 }
+
+.text-normal-weight {
+  font-weight: normal;
+}
