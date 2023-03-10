@@ -11,6 +11,14 @@ for (let index = 0; index < 5; index++) {
 let whileIndex = 0;
 
 while (whileIndex < 5) {
-  whileIndex++;
   console.log(whileIndex);
+  whileIndex++;
 }
+
+/* Do While */
+let doWhileIndex = 0;
+
+do {
+  console.log(doWhileIndex);
+  doWhileIndex++;
+} while (doWhileIndex < 5);
