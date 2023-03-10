@@ -13,3 +13,7 @@ const vegetables = [
 
 let describeMango = `${vegetables[5].name} is one of the sweetest vegetables`;
 console.log(describeMango);
+
+vegetables.map((vegetable) => {
+  console.log(`I have an ${vegetable}`);
+});
