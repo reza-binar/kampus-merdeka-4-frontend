@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Example DOM</title>
+  </head>
+  <body>
+    <h1>Change Color App</h1>
+    <label for="background"> Background Color: </label>
+    <input type="color" id="bg-color" />
+    <br />
+    <label for="text-color">Text Color: </label>
+    <input type="color" id="text-color" />
+
+    <script>
+      const bgColor = document.getElementById("bg-color");
+      const textColor = document.getElementById("text-color");
+
+      // It will always run when the bg-color id changed
+      bgColor.addEventListener("change", (event) => {
+        document.body.style.backgroundColor = bgColor.value;
+      });
+
+      // It will always run when the text-color id changed
+      textColor.addEventListener("change", (event) => {
+        document.body.style.color = textColor.value;
+      });
+    </script>
+  </body>
+</html>

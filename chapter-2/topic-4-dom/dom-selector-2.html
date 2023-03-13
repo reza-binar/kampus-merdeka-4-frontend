@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>More than one access elements</title>
+  </head>
+  <body>
+    <!-- It will be array index 0 -->
+    <p class="paragraph">
+      Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatibus
+      commodi mollitia maxime dolor ipsa accusantium vel, magni blanditiis
+      reprehenderit deleniti aspernatur exercitationem a tempore itaque dicta
+      nobis, labore, voluptate eaque.
+    </p>
+    <!-- It will be array index 1 -->
+    <p class="paragraph">
+      Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatibus
+      commodi mollitia maxime dolor ipsa accusantium vel, magni blanditiis
+      reprehenderit deleniti aspernatur exercitationem a tempore itaque dicta
+      nobis, labore, voluptate eaque.
+    </p>
+    <!-- It will be array index 2 -->
+    <p class="paragraph">
+      Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatibus
+      commodi mollitia maxime dolor ipsa accusantium vel, magni blanditiis
+      reprehenderit deleniti aspernatur exercitationem a tempore itaque dicta
+      nobis, labore, voluptate eaque.
+    </p>
+
+    <script>
+      const paragraphs = document.getElementsByClassName("paragraph");
+      setInterval(() => {
+        paragraphs[0].style.color = "red";
+        paragraphs[1].style.color = "green";
+        paragraphs[2].style.color = "blue";
+
+        setTimeout(() => {
+          paragraphs[0].style.color = "black";
+          paragraphs[1].style.color = "black";
+          paragraphs[2].style.color = "black";
+        }, 1000);
+      }, 2000);
+    </script>
+  </body>
+</html>

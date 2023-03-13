@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Choose Element by ID</title>
+  </head>
+  <body>
+    <h1 id="header">This is Header</h1>
+    <div id="app">This is the start condition</div>
+
+    <script type="text/javascript">
+      // access the id header
+      const header = document.getElementById("header");
+
+      // Edit the header element
+      header.innerText = "The header is already changed!";
+
+      setTimeout(() => {
+        // access the element with id "app"
+        const tutorial = document.getElementById("app");
+
+        // insert text to element id "app"
+        tutorial.innerHTML = "<h1>Tutorial Javascript</h1>";
+
+        // add css to app
+        tutorial.style.backgroundColor = "gold";
+        tutorial.style.padding = "10px";
+      }, 3000);
+    </script>
+  </body>
+</html>

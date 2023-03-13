@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create element in DOM</title>
+  </head>
+  <body>
+    <h2 id="title2">Delete me!</h2>
+
+    <script>
+      // create element h1
+      const title = document.createElement("h1");
+      const title2 = document.getElementById("title2");
+
+      // fill the content of h1
+      title.textContent = "Learning Javascript";
+
+      // add element to body
+      document.body.append(title);
+
+      // delete the title2 after 2 seconds
+      setTimeout(() => {
+        title2.remove();
+      }, 2000);
+    </script>
+  </body>
+</html>
