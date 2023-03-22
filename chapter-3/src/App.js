@@ -1,34 +1,28 @@
-import logo from "./logo.svg";
-import "./App.css";
-import Hello from "./components/Hello";
-import HelloClassComponent from "./components/HelloClassComponent";
-import ThisIsComponent from "./components/ThisIsComponent";
+// Import bootstrap
+import "bootstrap/dist/css/bootstrap.min.css";
+
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
+import Home from "./pages/Home";
+import Contact from "./pages/Contact";
+import About from "./pages/About";
 
 function App() {
   return (
-    <>
-      <Hello type="small" victor="Victor Arie" />
-      <ThisIsComponent />
+    <BrowserRouter>
+      {/* Navbar and Footer component will be stay */}
+      <Navbar />
 
-      {/* <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Hello World
-          </a>
-        </header>
-      </div> */}
+      {/* The page will only effected to the content */}
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/about" element={<About />} />
+      </Routes>
 
-      <HelloClassComponent />
-    </>
+      <Footer />
+    </BrowserRouter>
   );
 }
 
