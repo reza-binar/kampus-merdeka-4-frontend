@@ -15,7 +15,10 @@ function NavbarComponent() {
             <Nav.Link as={Link} to="/">
               Home
             </Nav.Link>
-            <NavDropdown title="Dropdown" id="basic-nav-dropdown">
+            <NavDropdown title="Menu" id="basic-nav-dropdown">
+              <NavDropdown.Item as={Link} to="/students">
+                Students
+              </NavDropdown.Item>
               <NavDropdown.Item as={Link} to={"/contact"}>
                 Contact
               </NavDropdown.Item>
