@@ -19,6 +19,9 @@ function NavbarComponent() {
               <NavDropdown.Item as={Link} to="/students">
                 Students
               </NavDropdown.Item>
+              <NavDropdown.Item as={Link} to="/user-lists">
+                User List
+              </NavDropdown.Item>
               <NavDropdown.Item as={Link} to={"/contact"}>
                 Contact
               </NavDropdown.Item>
