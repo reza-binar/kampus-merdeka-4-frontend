@@ -1,16 +1,39 @@
-import React, { useEffect } from "react";
-import { Container, Row, Col, Card } from "react-bootstrap";
+import React, { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
+import { Container, Row, Col } from "react-bootstrap";
 import axios from "axios";
+import UserCard from "../components/UserCard";
 
 function UserLists() {
-  const getUserListsData = async () => {
-    const response = await axios.get(`https://reqres.in/api/users`);
-    console.log(response);
-  };
+  let [searchParams, setSearchParams] = useSearchParams();
+
+  const [users, setUsers] = useState([]);
+  const [requestPage, setRequestPage] = useState([1]);
 
   useEffect(() => {
-    getUserListsData();
-  }, []);
+    const page = searchParams.get("page");
+    setRequestPage(page);
+  }, [searchParams]);
+
+  useEffect(() => {
+    const getUserListsData = async (page, perPage) => {
+      try {
+        const config = {
+          method: "get",
+          url: `https://reqres.in/api/users?page=${page}&per_page=${perPage}`,
+        };
+
+        const response = await axios.request(config);
+        const { data } = response.data;
+
+        setUsers(data);
+      } catch (error) {
+        alert(error);
+      }
+    };
+
+    getUserListsData(requestPage, 8);
+  }, [requestPage]);
 
   return (
     <Container className="my-4">
@@ -20,18 +43,18 @@ function UserLists() {
         </Col>
       </Row>
       <Row>
-        <Col md={4}>
-          <Card style={{ width: "18rem" }}>
-            <Card.Img variant="top" src="holder.js/100px180" />
-            <Card.Body>
-              <Card.Title>Card Title</Card.Title>
-              <Card.Text>
-                Some quick example text to build on the card title and make up
-                the bulk of the card's content.
-              </Card.Text>
-            </Card.Body>
-          </Card>
-        </Col>
+        {users.length > 0 ? (
+          users.map((user) => (
+            <UserCard
+              avatar={user.avatar}
+              firstName={user.first_name}
+              lastName={user.last_name}
+              email={user.email}
+            />
+          ))
+        ) : (
+          <h3 className="text-center">Loading...</h3>
+        )}
       </Row>
     </Container>
   );
