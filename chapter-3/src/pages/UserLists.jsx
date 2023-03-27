@@ -1,38 +1,70 @@
 import React, { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
-import { Container, Row, Col } from "react-bootstrap";
+import { useSearchParams, useNavigate } from "react-router-dom";
+import { Container, Row, Col, Pagination } from "react-bootstrap";
 import axios from "axios";
 import UserCard from "../components/UserCard";
 
 function UserLists() {
-  let [searchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
 
   const [users, setUsers] = useState([]);
-  const [requestPage, setRequestPage] = useState([1]);
+  const [requestPage, setRequestPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(0);
+  const [items, setItems] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    if (totalPages > 0) {
+      const itemsPages = [];
+      for (let number = 1; number <= totalPages; number++) {
+        itemsPages.push(
+          <Pagination.Item
+            key={number}
+            active={number === Number(requestPage)}
+            onClick={() => {
+              navigate(`/user-lists?page=${number}`);
+            }}
+          >
+            {number}
+          </Pagination.Item>
+        );
+      }
+
+      setItems(itemsPages);
+    }
+  }, [requestPage, totalPages, navigate]);
 
   useEffect(() => {
     const page = searchParams.get("page");
-    setRequestPage(page);
+    if (page > 0) {
+      setRequestPage(page);
+    }
   }, [searchParams]);
 
   useEffect(() => {
     const getUserListsData = async (page, perPage) => {
       try {
+        setIsLoading(true);
+
         const config = {
           method: "get",
           url: `https://reqres.in/api/users?page=${page}&per_page=${perPage}`,
         };
 
         const response = await axios.request(config);
-        const { data } = response.data;
+        const { data, total_pages } = response.data;
 
         setUsers(data);
+        setTotalPages(total_pages);
+        setIsLoading(false);
       } catch (error) {
         alert(error);
+        setIsLoading(false);
       }
     };
 
-    getUserListsData(requestPage, 8);
+    getUserListsData(requestPage, 4);
   }, [requestPage]);
 
   return (
@@ -43,9 +75,12 @@ function UserLists() {
         </Col>
       </Row>
       <Row className="g-5">
-        {users.length > 0 ? (
+        {isLoading ? (
+          <h3 className="text-center">Loading...</h3>
+        ) : users.length > 0 ? (
           users.map((user) => (
             <UserCard
+              key={user.id}
               avatar={user.avatar}
               firstName={user.first_name}
               lastName={user.last_name}
@@ -53,8 +88,15 @@ function UserLists() {
             />
           ))
         ) : (
-          <h3 className="text-center">Loading...</h3>
+          <h3 className="text-center">Users are not found!</h3>
         )}
+      </Row>
+      <Row className="my-4">
+        <Col>
+          <div className="d-flex justify-content-center align-items-center">
+            <Pagination>{items}</Pagination>
+          </div>
+        </Col>
       </Row>
     </Container>
   );
