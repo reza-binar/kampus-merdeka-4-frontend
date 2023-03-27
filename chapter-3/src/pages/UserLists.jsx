@@ -5,7 +5,7 @@ import axios from "axios";
 import UserCard from "../components/UserCard";
 
 function UserLists() {
-  let [searchParams, setSearchParams] = useSearchParams();
+  let [searchParams] = useSearchParams();
 
   const [users, setUsers] = useState([]);
   const [requestPage, setRequestPage] = useState([1]);
@@ -42,7 +42,7 @@ function UserLists() {
           <h2>User Lists</h2>
         </Col>
       </Row>
-      <Row>
+      <Row className="g-5">
         {users.length > 0 ? (
           users.map((user) => (
             <UserCard
