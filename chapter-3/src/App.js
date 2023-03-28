@@ -9,6 +9,7 @@ import Contact from "./pages/Contact";
 import About from "./pages/About";
 import Student from "./pages/Student";
 import UserLists from "./pages/UserLists";
+import AddStudent from "./pages/AddStudent";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/about" element={<About />} />
         <Route path="/students" element={<Student />} />
+        <Route path="/students/add" element={<AddStudent />} />
         <Route path="/user-lists" element={<UserLists />} />
       </Routes>
 

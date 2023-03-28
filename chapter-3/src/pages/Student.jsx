@@ -1,10 +1,20 @@
 import React from "react";
-import { Container, Row, Col, ListGroup } from "react-bootstrap";
+import { Container, Row, Col, ListGroup, Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import students from "../data/students.json";
 
 function Student() {
   return (
-    <Container>
+    <Container className="my-4">
+      <Row className="mb-4">
+        <Col>
+          <div className="d-flex justify-content-end">
+            <Button as={Link} variant="primary" to="/students/add">
+              Add Student
+            </Button>
+          </div>
+        </Col>
+      </Row>
       <Row>
         <Col>
           <ListGroup>
