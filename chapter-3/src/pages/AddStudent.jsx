@@ -11,6 +11,11 @@ function AddStudent() {
   const onSubmit = (event) => {
     event.preventDefault();
 
+    if (!name) {
+      alert("name is required!");
+      return;
+    }
+
     const studentsLength = students.length;
     students.push({
       id: studentsLength + 1,
@@ -33,6 +38,7 @@ function AddStudent() {
               <Form.Control
                 type="text"
                 placeholder="Enter name"
+                required={true}
                 value={name}
                 onChange={(e) => setName(e.target.value)}
               />

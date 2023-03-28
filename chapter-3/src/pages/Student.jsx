@@ -21,7 +21,7 @@ function Student() {
             {students &&
               students.length > 0 &&
               students.map((student) => (
-                <ListGroup.Item>
+                <ListGroup.Item key={student.id}>
                   {student.id} - {student.name}
                 </ListGroup.Item>
               ))}
