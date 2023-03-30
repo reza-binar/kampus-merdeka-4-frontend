@@ -7,9 +7,10 @@ import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import Contact from "./pages/Contact";
 import About from "./pages/About";
-import Student from "./pages/Student";
+import Student from "./pages/students/Student";
 import UserLists from "./pages/UserLists";
-import AddStudent from "./pages/AddStudent";
+import AddStudent from "./pages/students/AddStudent";
+import LinkState from "./pages/LinkState";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
         <Route path="/students" element={<Student />} />
         <Route path="/students/add" element={<AddStudent />} />
         <Route path="/user-lists" element={<UserLists />} />
+        <Route path="/link-state" element={<LinkState />} />
       </Routes>
 
       <Footer />

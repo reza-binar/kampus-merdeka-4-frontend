@@ -28,6 +28,9 @@ function NavbarComponent() {
               <NavDropdown.Item as={Link} to="/about">
                 About
               </NavDropdown.Item>
+              <NavDropdown.Item as={Link} to="/link-state">
+                Link State
+              </NavDropdown.Item>
             </NavDropdown>
           </Nav>
         </Navbar.Collapse>

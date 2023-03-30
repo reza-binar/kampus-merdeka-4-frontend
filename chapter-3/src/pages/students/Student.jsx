@@ -1,7 +1,7 @@
 import React from "react";
 import { Container, Row, Col, ListGroup, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import students from "../data/students.json";
+import students from "../../data/students.json";
 
 function Student() {
   return (

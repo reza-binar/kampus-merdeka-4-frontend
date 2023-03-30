@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import students from "../data/students.json";
+import students from "../../data/students.json";
 
 function AddStudent() {
   const navigate = useNavigate();
