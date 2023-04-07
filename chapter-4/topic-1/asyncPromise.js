@@ -1,3 +1,7 @@
+/* 
+  Axios is package to fetch the rest api
+  Axios is async promise
+*/
 const axios = require("axios");
 
 let config = {
@@ -23,7 +27,7 @@ axios
 async function asyncAwaitAxios() {
   try {
     const response = await axios.request(config); // Wait for the process done
-    console.log(response.data);
+    console.log(response.data); // if no await in response varible, it will execute first
   } catch (error) {
     throw error;
   }
