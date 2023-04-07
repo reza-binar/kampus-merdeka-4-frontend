@@ -2,7 +2,7 @@ const axios = require("axios");
 
 let config = {
   method: "get",
-  url: "https://reqres.iasdsan/api/users",
+  url: "https://reqres.in/api/users",
 };
 
 /* Promise
