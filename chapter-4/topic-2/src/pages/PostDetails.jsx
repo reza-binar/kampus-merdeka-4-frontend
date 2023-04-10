@@ -3,11 +3,13 @@ import { Container, Row, Col } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 
 function PostDetails() {
+  const params = useParams();
+
   const [post, setPost] = useState({});
   const [loading, setLoading] = useState(true);
-  const params = useParams();
 
   useEffect(() => {
     async function fetchPost() {
@@ -20,13 +22,11 @@ function PostDetails() {
         setLoading(false);
       } catch (error) {
         setLoading(false);
-        alert(error);
+        toast.error(error?.message);
       }
     }
 
-    if (params?.id) {
-      fetchPost();
-    }
+    fetchPost();
   }, [params]);
 
   return (

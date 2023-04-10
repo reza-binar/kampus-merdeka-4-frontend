@@ -6,6 +6,7 @@ import Home from "./pages/Home";
 import PostDetails from "./pages/PostDetails";
 import AddPost from "./pages/AddPost";
 import { ToastContainer } from "react-toastify";
+import EditPost from "./pages/EditPost";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/posts/add" element={<AddPost />} />
         <Route path="/posts/:id" element={<PostDetails />} />
+        <Route path="/posts/edit/:id" element={<EditPost />} />
       </Routes>
       <ToastContainer />
     </BrowserRouter>

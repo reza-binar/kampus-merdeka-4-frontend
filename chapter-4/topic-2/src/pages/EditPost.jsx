@@ -1,29 +1,34 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
-function AddPost() {
+function EditPost() {
   const navigate = useNavigate();
+  const params = useParams();
 
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
-  const userId = 1;
+  const [userId, setUserId] = useState(0);
 
   const onSubmit = async (e) => {
     e.preventDefault();
 
     try {
       const data = {
+        id: params?.id,
         title,
         body,
         userId,
       };
 
-      await axios.post("https://jsonplaceholder.typicode.com/posts", data);
+      await axios.put(
+        `https://jsonplaceholder.typicode.com/posts/${params?.id}`,
+        data
+      );
 
-      toast.success("Add post success!");
+      toast.success("Edit post success!");
 
       return navigate("/");
     } catch (error) {
@@ -31,11 +36,29 @@ function AddPost() {
     }
   };
 
+  useEffect(() => {
+    async function fetchPost() {
+      try {
+        const response = await axios.get(
+          `https://jsonplaceholder.typicode.com/posts/${params.id}`
+        );
+        setTitle(response?.data?.title);
+        setBody(response?.data?.body);
+        setUserId(response?.data?.userId);
+      } catch (error) {
+        if (error?.response?.status === 404) return navigate("/");
+        toast.error(error?.message);
+      }
+    }
+
+    fetchPost();
+  }, [params]);
+
   return (
     <Container className="p-4">
       <Row>
         <Col>
-          <h1 className="text-center">Add Post</h1>
+          <h1 className="text-center">Edit Post - {params?.id}</h1>
 
           <Form onSubmit={onSubmit}>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
@@ -66,4 +89,4 @@ function AddPost() {
   );
 }
 
-export default AddPost;
+export default EditPost;
