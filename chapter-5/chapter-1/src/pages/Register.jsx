@@ -3,7 +3,7 @@ import { Form, Button, Container } from "react-bootstrap";
 import axios from "axios";
 // import { useNavigate } from "react-router-dom";
 
-function Login() {
+function Register() {
   // const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
@@ -20,7 +20,7 @@ function Login() {
 
       let config = {
         method: "post",
-        url: "https://reqres.in/api/login",
+        url: "https://reqres.in/api/register",
         headers: {
           "Content-Type": "application/json",
         },
@@ -78,4 +78,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Register;

@@ -1,8 +1,18 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Navbar, Container, Nav } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 function Header() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+
+    if (token) {
+      setIsLoggedIn(true);
+    }
+  }, []);
+
   return (
     <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
       <Container>
@@ -17,12 +27,30 @@ function Header() {
             </Nav.Link>
           </Nav>
           <Nav>
-            <Nav.Link as={Link} to={"/login"}>
-              Login
-            </Nav.Link>
-            <Nav.Link as={Link} to={"/register"}>
-              Register
-            </Nav.Link>
+            {isLoggedIn ? (
+              <>
+                <Nav.Link as={Link} to={"/users/dashboard"}>
+                  Dashboard
+                </Nav.Link>
+                <Nav.Link
+                  onClick={() => {
+                    localStorage.removeItem("token");
+                    setIsLoggedIn(false);
+                  }}
+                >
+                  Logout
+                </Nav.Link>
+              </>
+            ) : (
+              <>
+                <Nav.Link as={Link} to={"/login"}>
+                  Login
+                </Nav.Link>
+                <Nav.Link as={Link} to={"/register"}>
+                  Register
+                </Nav.Link>
+              </>
+            )}
           </Nav>
         </Navbar.Collapse>
       </Container>
