@@ -1,15 +1,18 @@
+require("dotenv").config();
+
 const express = require("express");
 const cors = require("cors");
 const validator = require("validator");
 const bcrypt = require("bcrypt");
 const axios = require("axios");
 const jwt = require("jsonwebtoken");
-const {
-  JWT_SECRET_KEY = "Rahasia",
-  NODE_ENV,
-  API_KEY = "9778f9d16627540d06bf1474698dbfeb",
-} = process.env;
+const { JWT_SECRET_KEY = "Rahasia", NODE_ENV, API_KEY } = process.env;
 const { User } = require("./models");
+
+// Check the env
+if (!JWT_SECRET_KEY || !API_KEY) {
+  throw new Error("Env is required");
+}
 
 const PORT = process.env.PORT || "4000";
 const app = express();
@@ -205,6 +208,10 @@ app.post("/api/v1/auth/google", async (req, res) => {
       error.message = "Your token is not valid";
     }
 
+    if (axios.isAxiosError(error)) {
+      error.message = error.response.data.error_description;
+    }
+
     res.status(401).json({ message: error.message });
   }
 });
@@ -242,7 +249,7 @@ app.get("/api/v1/movie/popular", async (req, res, next) => {
   }
 });
 
-app.get("/api/v1/movie/:movie_id", authorization, async (req, res, next) => {
+app.get("/api/v1/movie/:movie_id", async (req, res, next) => {
   try {
     const movieID = req.params.movie_id;
     if (!movieID) {
@@ -257,6 +264,10 @@ app.get("/api/v1/movie/:movie_id", authorization, async (req, res, next) => {
   } catch (error) {
     if (NODE_ENV === "production") {
       error.message = "internal server error";
+    }
+
+    if (axios.isAxiosError(error)) {
+      error.message = error.response.data.status_message;
     }
 
     res.status(500).json({ message: error.message });
