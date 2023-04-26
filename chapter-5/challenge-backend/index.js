@@ -249,7 +249,7 @@ app.get("/api/v1/movie/popular", async (req, res, next) => {
   }
 });
 
-app.get("/api/v1/movie/:movie_id", async (req, res, next) => {
+app.get("/api/v1/movie/:movie_id", authorization, async (req, res, next) => {
   try {
     const movieID = req.params.movie_id;
     if (!movieID) {
