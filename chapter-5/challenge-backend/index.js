@@ -204,15 +204,18 @@ app.post("/api/v1/auth/google", async (req, res) => {
 
     res.status(200).json({ data: { token } });
   } catch (error) {
+    let status = 500;
+
     if (NODE_ENV === "production") {
       error.message = "Your token is not valid";
     }
 
     if (axios.isAxiosError(error)) {
       error.message = error.response.data.error_description;
+      status = error.response.status;
     }
 
-    res.status(401).json({ message: error.message });
+    res.status(status).json({ message: error.message });
   }
 });
 
@@ -230,12 +233,15 @@ app.get("/api/docs", (req, res, next) => {
 
 app.get("/api/v1/movie/popular", async (req, res, next) => {
   try {
+    let { page } = req.query;
+    const pageURL = page ? `&page=${page}` : ``;
+
     const response = await axios.get(
-      `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}`
+      `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}${pageURL}`
     );
 
     const data = response.data.results;
-    const page = response.data.page;
+    page = response.data.page;
     const total_pages = response.data.total_pages;
     const total_results = response.data.total_results;
 
@@ -262,12 +268,43 @@ app.get("/api/v1/movie/:movie_id", authorization, async (req, res, next) => {
 
     return res.status(200).json({ data: response.data });
   } catch (error) {
+    let status = 500;
+
     if (NODE_ENV === "production") {
       error.message = "internal server error";
     }
 
     if (axios.isAxiosError(error)) {
       error.message = error.response.data.status_message;
+      status = error.response.status;
+    }
+
+    res.status(status).json({ message: error.message });
+  }
+});
+
+app.get("/api/v1/search/movie", async (req, res, next) => {
+  try {
+    let { page, query } = req.query;
+    const pageURL = page ? `&page=${page}` : ``;
+
+    if (!query) {
+      return res.status(400).json({ message: "Query is required" });
+    }
+
+    const response = await axios.get(
+      `https://api.themoviedb.org/3/search/movie?query=${query}&page=${page}&api_key=${API_KEY}${pageURL}`
+    );
+
+    const data = response.data.results;
+    page = response.data.page;
+    const total_pages = response.data.total_pages;
+    const total_results = response.data.total_results;
+
+    return res.status(200).json({ data, page, total_pages, total_results });
+  } catch (error) {
+    if (NODE_ENV === "production") {
+      error.message = "internal server error";
     }
 
     res.status(500).json({ message: error.message });
