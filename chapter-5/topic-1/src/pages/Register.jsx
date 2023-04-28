@@ -31,7 +31,7 @@ function Register() {
       };
 
       const response = await axios.request(config);
-      const { token } = response.data;
+      const { token } = response.data.data;
 
       localStorage.setItem("token", token);
 
