@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Form, Button, Container } from "react-bootstrap";
 import axios from "axios";
 // import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 function Login() {
   // const navigate = useNavigate();
@@ -20,7 +21,7 @@ function Login() {
 
       let config = {
         method: "post",
-        url: "https://reqres.in/api/login",
+        url: `${process.env.REACT_APP_API}/v1/auth/login`,
         headers: {
           "Content-Type": "application/json",
         },
@@ -38,10 +39,10 @@ function Login() {
       window.location.href = "/";
     } catch (error) {
       if (axios.isAxiosError(error)) {
-        alert(error.response.data.error);
+        toast.error(error.response.data.message);
         return;
       }
-      alert(error.message);
+      toast.error(error.message);
     }
   };
 

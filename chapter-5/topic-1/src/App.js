@@ -6,6 +6,7 @@ import NoTokenAccess from "./components/NoTokenAccess";
 import Home from "./pages/Home";
 import Protected from "./components/Protected";
 import Dashboard from "./pages/users/Dashboard";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   return (
@@ -39,6 +40,8 @@ function App() {
           }
         />
       </Routes>
+
+      <ToastContainer theme="colored" />
     </BrowserRouter>
   );
 }

@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import { Form, Button, Container } from "react-bootstrap";
 import axios from "axios";
 // import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 function Register() {
   // const navigate = useNavigate();
 
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -14,13 +16,14 @@ function Register() {
 
     try {
       let data = JSON.stringify({
+        name,
         email,
         password,
       });
 
       let config = {
         method: "post",
-        url: "https://reqres.in/api/register",
+        url: `${process.env.REACT_APP_API}/v1/auth/register`,
         headers: {
           "Content-Type": "application/json",
         },
@@ -38,16 +41,26 @@ function Register() {
       window.location.href = "/";
     } catch (error) {
       if (axios.isAxiosError(error)) {
-        alert(error.response.data.error);
+        toast.error(error.response.data.message);
         return;
       }
-      alert(error.message);
+      toast.error(error.message);
     }
   };
 
   return (
     <Container className="p-4">
       <Form onSubmit={onSubmit}>
+        <Form.Group className="mb-3" controlId="formBasicEmail">
+          <Form.Label>Name</Form.Label>
+          <Form.Control
+            type="text"
+            placeholder="Enter name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+        </Form.Group>
+
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Email address</Form.Label>
           <Form.Control
