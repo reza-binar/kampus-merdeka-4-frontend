@@ -44,7 +44,9 @@ function Dashboard() {
 
   return (
     <Container className="p-4">
-      <h1 className="text-center">Hi, {user?.name}!</h1>
+      <h1 className="text-center">
+        Hi, {user?.name} with {user?.email}!
+      </h1>
       <h1 className="text-center">
         This page only can be accessed by user having login
       </h1>
