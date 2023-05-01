@@ -1,4 +1,5 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 import Header from "./components/Header";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
@@ -10,39 +11,43 @@ import { ToastContainer } from "react-toastify";
 
 function App() {
   return (
-    <BrowserRouter>
-      <Header />
+    <GoogleOAuthProvider
+      clientId={process.env.REACT_APP_GOOGLE_OAUTH_CLIENT_ID}
+    >
+      <BrowserRouter>
+        <Header />
 
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route
-          path="/login"
-          element={
-            <NoTokenAccess>
-              <Login />
-            </NoTokenAccess>
-          }
-        />
-        <Route
-          path="/register"
-          element={
-            <NoTokenAccess>
-              <Register />
-            </NoTokenAccess>
-          }
-        />
-        <Route
-          path="/users/dashboard"
-          element={
-            <Protected>
-              <Dashboard />
-            </Protected>
-          }
-        />
-      </Routes>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route
+            path="/login"
+            element={
+              <NoTokenAccess>
+                <Login />
+              </NoTokenAccess>
+            }
+          />
+          <Route
+            path="/register"
+            element={
+              <NoTokenAccess>
+                <Register />
+              </NoTokenAccess>
+            }
+          />
+          <Route
+            path="/users/dashboard"
+            element={
+              <Protected>
+                <Dashboard />
+              </Protected>
+            }
+          />
+        </Routes>
 
-      <ToastContainer theme="colored" />
-    </BrowserRouter>
+        <ToastContainer theme="colored" />
+      </BrowserRouter>
+    </GoogleOAuthProvider>
   );
 }
 
