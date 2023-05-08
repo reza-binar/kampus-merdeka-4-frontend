@@ -23,11 +23,11 @@ function Home() {
         {posts &&
           posts?.length > 0 &&
           posts.map((post) => (
-            <Col>
-              <Link to={`/posts/${post.id}`}>
-                <h1>{post.title}</h1>
+            <Col key={post?.id}>
+              <Link to={`/posts/${post?.id}`}>
+                <h1>{post?.title}</h1>
               </Link>
-              <p>{post.body}</p>
+              <p>{post?.body}</p>
             </Col>
           ))}
       </Row>

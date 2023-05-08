@@ -10,6 +10,7 @@ import Dashboard from "./pages/users/Dashboard";
 import { ToastContainer } from "react-toastify";
 import { Provider } from "react-redux";
 import store from "./redux/store";
+import PostDetails from "./pages/posts/PostDetails";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
 
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path={"/posts/:id"} element={<PostDetails />} />
             <Route
               path="/login"
               element={
