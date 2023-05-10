@@ -1,19 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Navbar, Container, Nav } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { logout } from "../redux/actions/authActions";
 
 function Header() {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-
-    if (token) {
-      setIsLoggedIn(true);
-    }
-  }, []);
+  const { isLoggedIn } = useSelector((state) => state.auth);
 
   return (
     <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
@@ -36,9 +31,7 @@ function Header() {
                 </Nav.Link>
                 <Nav.Link
                   onClick={() => {
-                    localStorage.removeItem("token");
-                    setIsLoggedIn(false);
-                    return navigate("/");
+                    dispatch(logout(navigate));
                   }}
                 >
                   Logout
