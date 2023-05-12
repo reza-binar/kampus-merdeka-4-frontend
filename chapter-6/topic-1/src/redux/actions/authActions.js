@@ -24,6 +24,7 @@ export const registerLoginWithGoogle =
 
       dispatch(setToken(token));
       dispatch(setIsLoggedIn(true));
+      dispatch(getMe(null, null, null));
 
       // We will use navigate from react-router-dom by passing the argument because the useNavigate() can only used in component
       navigate("/");
@@ -40,6 +41,7 @@ export const logout = (navigate) => (dispatch) => {
   try {
     dispatch(setToken(null));
     dispatch(setIsLoggedIn(false));
+    dispatch(setUser(null));
 
     if (navigate) navigate("/");
   } catch (error) {
@@ -73,9 +75,7 @@ export const getMe =
       if (axios.isAxiosError(error)) {
         // If not valid token
         if (error.response.status === 401) {
-          dispatch(setToken(null));
-          dispatch(setIsLoggedIn(false));
-          dispatch(setUser(null));
+          dispatch(logout(null));
 
           // if navigatePathError params is false/null/undefined, it will not executed
           if (navigatePathError) navigate(navigatePathError);
@@ -88,3 +88,59 @@ export const getMe =
       toast.error(error.message);
     }
   };
+
+export const login = (data, navigate) => async (dispatch) => {
+  try {
+    let config = {
+      method: "post",
+      url: `${process.env.REACT_APP_API}/v1/auth/login`,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: data,
+    };
+
+    const response = await axios.request(config);
+    const { token } = response.data.data;
+
+    dispatch(setToken(token));
+    dispatch(setIsLoggedIn(true));
+    dispatch(getMe(null, null, null));
+
+    navigate("/");
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      toast.error(error.response.data.message);
+      return;
+    }
+    toast.error(error.message);
+  }
+};
+
+export const register = (data, navigate) => async (dispatch) => {
+  try {
+    let config = {
+      method: "post",
+      url: `${process.env.REACT_APP_API}/v1/auth/register`,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: data,
+    };
+
+    const response = await axios.request(config);
+    const { token } = response.data.data;
+
+    dispatch(setToken(token));
+    dispatch(setIsLoggedIn(true));
+    dispatch(getMe(null, null, null));
+
+    navigate("/");
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      toast.error(error.response.data.message);
+      return;
+    }
+    toast.error(error.message);
+  }
+};
