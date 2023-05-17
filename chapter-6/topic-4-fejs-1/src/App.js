@@ -1,13 +1,20 @@
 import { Routes, BrowserRouter, Route } from "react-router-dom";
+import { Provider } from "react-redux";
+import "react-toastify/dist/ReactToastify.css";
 import Home from "./pages/Home";
+import Posts from "./pages/Posts";
+import store from "./redux/store";
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Home />} />
-      </Routes>
-    </BrowserRouter>
+    <Provider store={store}>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/posts" element={<Posts />} />
+        </Routes>
+      </BrowserRouter>
+    </Provider>
   );
 }
 
