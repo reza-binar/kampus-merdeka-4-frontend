@@ -11,6 +11,7 @@ import { ToastContainer } from "react-toastify";
 import { Provider } from "react-redux";
 import store from "./redux/store";
 import PostDetails from "./pages/posts/PostDetails";
+import UseSelector from "./pages/UseSelector";
 
 function App() {
   return (
@@ -40,6 +41,7 @@ function App() {
                 </NoTokenAccess>
               }
             />
+            <Route path="/useselector" element={<UseSelector />} />
             <Route
               path="/users/dashboard"
               element={
