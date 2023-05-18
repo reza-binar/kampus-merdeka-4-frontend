@@ -1,30 +1,19 @@
-import React, { useEffect, useState } from "react";
-import { Container, Row, Col, Card } from "react-bootstrap";
-import axios from "axios";
-import { toast } from "react-toastify";
+import React, { useEffect } from "react";
+import { Container, Row, Col, Card, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { getPosts } from "../redux/actions/post";
 
 function Posts() {
-  const [posts, setPosts] = useState([]);
+  // dispatch -> to change the global state in redux
+  const dispatch = useDispatch();
+
+  // useSelector -> to access the global state (redux)
+  const { posts } = useSelector((state) => state.post);
 
   useEffect(() => {
-    const getPosts = async () => {
-      try {
-        const response = await axios.get(
-          `https://jsonplaceholder.typicode.com/posts`
-        );
-        setPosts(response.data);
-      } catch (error) {
-        if (axios.isAxiosError(error)) {
-          toast.error(error.response.data.message);
-          return;
-        }
-        toast.error(error.message);
-      }
-    };
-
-    getPosts();
-  }, []);
+    dispatch(getPosts());
+  }, [dispatch]);
 
   return (
     <Container className="p-4">
@@ -36,9 +25,15 @@ function Posts() {
                 <Card.Body>
                   <Card.Title className="text-center">{post?.title}</Card.Title>
                   <Card.Text>{post?.body}</Card.Text>
-                  <Card.Link as={Link} to={`/posts/${post?.id}`}>
-                    Details
-                  </Card.Link>
+                  <div class="d-grid gap-2">
+                    <Button
+                      variant="primary"
+                      as={Link}
+                      to={`/posts/${post?.id}`}
+                    >
+                      Details
+                    </Button>
+                  </div>
                 </Card.Body>
               </Card>
             </Col>
