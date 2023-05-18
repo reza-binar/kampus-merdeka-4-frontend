@@ -5,7 +5,7 @@ import { setPostDetails, setPosts } from "../reducers/post";
 export const getPosts = () => async (dispatch) => {
   try {
     const response = await axios.get(
-      `https://jsonplaceholder.typicode.com/posts`
+      `${process.env.REACT_APP_POSTS_API}/posts`
     );
     dispatch(setPosts(response.data));
   } catch (error) {
@@ -20,7 +20,7 @@ export const getPosts = () => async (dispatch) => {
 export const getPostDetails = (id) => async (dispatch) => {
   try {
     const response = await axios.get(
-      `https://jsonplaceholder.typicode.com/posts/${id}`
+      `${process.env.REACT_APP_POSTS_API}/posts/${id}`
     );
     dispatch(setPostDetails(response.data));
   } catch (error) {
