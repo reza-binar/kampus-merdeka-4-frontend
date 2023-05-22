@@ -1,8 +1,11 @@
 import React from "react";
 import { Navbar, Container, Nav } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 function Header() {
+  const { isLoggedIn } = useSelector((state) => state.auth);
+
   return (
     <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
       <Container>
@@ -20,12 +23,20 @@ function Header() {
             </Nav.Link>
           </Nav>
           <Nav>
-            <Nav.Link as={Link} to={"/login"}>
-              Login
-            </Nav.Link>
-            <Nav.Link as={Link} to={"/register"}>
-              Register
-            </Nav.Link>
+            {isLoggedIn ? (
+              <Nav.Link as={Link} to={"/user/dashboard"}>
+                Dashboard
+              </Nav.Link>
+            ) : (
+              <>
+                <Nav.Link as={Link} to={"/login"}>
+                  Login
+                </Nav.Link>
+                <Nav.Link as={Link} to={"/register"}>
+                  Register
+                </Nav.Link>
+              </>
+            )}
           </Nav>
         </Navbar.Collapse>
       </Container>
