@@ -1,10 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Navbar, Container, Nav } from "react-bootstrap";
-import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { getProfile, logout } from "../redux/actions/auth";
 
 function Header() {
-  const { isLoggedIn } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const { isLoggedIn, token, user } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    if (isLoggedIn && token) {
+      dispatch(getProfile());
+    }
+  }, [dispatch, isLoggedIn, token]);
 
   return (
     <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
@@ -24,9 +34,14 @@ function Header() {
           </Nav>
           <Nav>
             {isLoggedIn ? (
-              <Nav.Link as={Link} to={"/user/dashboard"}>
-                Dashboard
-              </Nav.Link>
+              <>
+                <Nav.Link as={Link} to={"/user/dashboard"}>
+                  Dashboard ({user?.name})
+                </Nav.Link>
+                <Nav.Link onClick={() => dispatch(logout(navigate))}>
+                  Logout
+                </Nav.Link>
+              </>
             ) : (
               <>
                 <Nav.Link as={Link} to={"/login"}>

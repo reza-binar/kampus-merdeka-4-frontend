@@ -9,6 +9,8 @@ import PostDetails from "./pages/PostDetails";
 import Header from "./components/Header";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import Protected from "./components/Protected";
+import Dashboard from "./pages/Dashboard";
 
 function App() {
   return (
@@ -24,6 +26,15 @@ function App() {
 
           <Route path="/posts" element={<Posts />} />
           <Route path="/posts/:id" element={<PostDetails />} />
+
+          <Route
+            path="/user/dashboard"
+            element={
+              <Protected>
+                <Dashboard />
+              </Protected>
+            }
+          />
         </Routes>
 
         <ToastContainer theme="colored" />
