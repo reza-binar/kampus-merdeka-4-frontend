@@ -12,6 +12,7 @@ import Register from "./pages/Register";
 import Protected from "./components/Protected";
 import Dashboard from "./pages/Dashboard";
 import RedirectIfProtected from "./components/RedirectIfProtected";
+import About from "./pages/About";
 
 function App() {
   return (
@@ -41,6 +42,8 @@ function App() {
 
           <Route path="/posts" element={<Posts />} />
           <Route path="/posts/:id" element={<PostDetails />} />
+
+          <Route path="/about" element={<About />} />
 
           <Route
             path="/user/dashboard"

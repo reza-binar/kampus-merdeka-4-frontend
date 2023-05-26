@@ -31,6 +31,9 @@ function Header() {
             <Nav.Link as={Link} to={"/posts"}>
               Posts
             </Nav.Link>
+            <Nav.Link as={Link} to={"/about"}>
+              About
+            </Nav.Link>
           </Nav>
           <Nav>
             {isLoggedIn ? (
