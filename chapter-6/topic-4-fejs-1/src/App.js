@@ -11,6 +11,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Protected from "./components/Protected";
 import Dashboard from "./pages/Dashboard";
+import RedirectIfProtected from "./components/RedirectIfProtected";
 
 function App() {
   return (
@@ -21,8 +22,22 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
 
-          <Route path="/register" element={<Register />} />
-          <Route path="/login" element={<Login />} />
+          <Route
+            path="/register"
+            element={
+              <RedirectIfProtected>
+                <Register />
+              </RedirectIfProtected>
+            }
+          />
+          <Route
+            path="/login"
+            element={
+              <RedirectIfProtected>
+                <Login />
+              </RedirectIfProtected>
+            }
+          />
 
           <Route path="/posts" element={<Posts />} />
           <Route path="/posts/:id" element={<PostDetails />} />

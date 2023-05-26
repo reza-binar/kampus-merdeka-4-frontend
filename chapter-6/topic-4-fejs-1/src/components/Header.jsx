@@ -12,9 +12,9 @@ function Header() {
 
   useEffect(() => {
     if (isLoggedIn && token) {
-      dispatch(getProfile());
+      dispatch(getProfile(navigate));
     }
-  }, [dispatch, isLoggedIn, token]);
+  }, [dispatch, isLoggedIn, navigate, token]);
 
   return (
     <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">

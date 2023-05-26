@@ -58,10 +58,10 @@ export const logout = (navigate) => async (dispatch) => {
   dispatch(setUser(null));
 
   // redirect to home
-  navigate("/");
+  if (navigate) navigate("/login");
 };
 
-export const getProfile = () => async (dispatch, getState) => {
+export const getProfile = (navigate) => async (dispatch, getState) => {
   try {
     const { token } = getState().auth;
 
@@ -79,6 +79,9 @@ export const getProfile = () => async (dispatch, getState) => {
   } catch (error) {
     if (axios.isAxiosError(error)) {
       toast.error(error?.response?.data?.message);
+      if (error.response.status === 401) {
+        dispatch(logout(navigate));
+      }
       return;
     }
 
