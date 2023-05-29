@@ -13,50 +13,53 @@ import Protected from "./components/Protected";
 import Dashboard from "./pages/Dashboard";
 import RedirectIfProtected from "./components/RedirectIfProtected";
 import About from "./pages/About";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 
 function App() {
   return (
     <Provider store={store}>
-      <BrowserRouter>
-        <Header />
+      <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}>
+        <BrowserRouter>
+          <Header />
 
-        <Routes>
-          <Route path="/" element={<Home />} />
+          <Routes>
+            <Route path="/" element={<Home />} />
 
-          <Route
-            path="/register"
-            element={
-              <RedirectIfProtected>
-                <Register />
-              </RedirectIfProtected>
-            }
-          />
-          <Route
-            path="/login"
-            element={
-              <RedirectIfProtected>
-                <Login />
-              </RedirectIfProtected>
-            }
-          />
+            <Route
+              path="/register"
+              element={
+                <RedirectIfProtected>
+                  <Register />
+                </RedirectIfProtected>
+              }
+            />
+            <Route
+              path="/login"
+              element={
+                <RedirectIfProtected>
+                  <Login />
+                </RedirectIfProtected>
+              }
+            />
 
-          <Route path="/posts" element={<Posts />} />
-          <Route path="/posts/:id" element={<PostDetails />} />
+            <Route path="/posts" element={<Posts />} />
+            <Route path="/posts/:id" element={<PostDetails />} />
 
-          <Route path="/about" element={<About />} />
+            <Route path="/about" element={<About />} />
 
-          <Route
-            path="/user/dashboard"
-            element={
-              <Protected>
-                <Dashboard />
-              </Protected>
-            }
-          />
-        </Routes>
+            <Route
+              path="/user/dashboard"
+              element={
+                <Protected>
+                  <Dashboard />
+                </Protected>
+              }
+            />
+          </Routes>
 
-        <ToastContainer theme="colored" />
-      </BrowserRouter>
+          <ToastContainer theme="colored" />
+        </BrowserRouter>
+      </GoogleOAuthProvider>
     </Provider>
   );
 }
