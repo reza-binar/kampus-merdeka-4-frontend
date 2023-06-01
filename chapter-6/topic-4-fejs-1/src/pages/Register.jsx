@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { register } from "../redux/actions/auth";
 import { toast } from "react-toastify";
+import GoogleLogin from "../components/GoogleLogin";
 
 function Register() {
   const dispatch = useDispatch();
@@ -80,6 +81,15 @@ function Register() {
               Submit
             </Button>
           </Form>
+        </Col>
+      </Row>
+
+      <Row>
+        <Col>
+          <h3 className="text-center">Or</h3>
+          <div className="d-flex justify-content-center align-items-center">
+            <GoogleLogin buttonText={"Register with Google"} />
+          </div>
         </Col>
       </Row>
     </Container>

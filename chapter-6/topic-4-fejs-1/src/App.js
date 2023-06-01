@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Routes, BrowserRouter, Route } from "react-router-dom";
 import { Provider } from "react-redux";
 import "react-toastify/dist/ReactToastify.css";
@@ -13,9 +14,26 @@ import Protected from "./components/Protected";
 import Dashboard from "./pages/Dashboard";
 import RedirectIfProtected from "./components/RedirectIfProtected";
 import About from "./pages/About";
+import Search from "./pages/Search";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 
 function App() {
+  useEffect(() => {
+    function handleContextMenu(e) {
+      if (process.env.NODE_ENV !== "development") {
+        e.preventDefault(); // prevents the default right-click menu from appearing
+      }
+    }
+    // add the event listener to the component's root element
+    const rootElement = document.getElementById("root");
+    rootElement.addEventListener("contextmenu", handleContextMenu);
+    // remove the event listener when the component is unmounted
+
+    return () => {
+      rootElement.removeEventListener("contextmenu", handleContextMenu);
+    };
+  }, []);
+
   return (
     <Provider store={store}>
       <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}>
@@ -24,6 +42,7 @@ function App() {
 
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/movies/search" element={<Search />} />
 
             <Route
               path="/register"
